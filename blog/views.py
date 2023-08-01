@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Category, Comment
 from users.models import Author
 from .forms import PostForm
-
+from .forms import CommentForm
 
 # Create your views here.
 
@@ -63,3 +63,17 @@ def category_details(request, category_id):
     else:
         form = PostForm()
     return render(request, 'blog/category_details.html', {'category': category, 'form': form})
+
+
+def update_comment(request, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment.content = form.cleaned_data['content']
+            comment.save()
+            return redirect('post_details', post_id=comment.post.id)
+    else:
+        form = CommentForm()
+
+    return render(request, 'blog/update_comment.html', {'form': form})
