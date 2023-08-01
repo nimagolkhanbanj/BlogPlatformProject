@@ -8,4 +8,5 @@ urlpatterns = [
     path('categories/', category_list, name="category_list"),
     path('categories/<int:pk>/', category_details, name="category_details"),
 
+
 ]
