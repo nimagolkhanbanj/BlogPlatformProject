@@ -23,7 +23,7 @@ from users.admin import author_admin_site
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('author_admin/', author_admin_site.urls),
+    path('author_admin/', author_admin_site.urls,  name="author_admin"),
     path('', include('blog.urls', namespace='blog')),
     path('users/', include('users.urls')),
 ]
